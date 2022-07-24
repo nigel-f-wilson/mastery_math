@@ -1,0 +1,93 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-masterymath-staging-171830-authRole",
+      "UnauthRoleArn": "arn:aws:iam::421377131745:role/amplify-masterymath-staging-171830-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::421377131745:role/amplify-masterymath-staging-171830-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-masterymath-staging-171830-deployment",
+      "UnauthRoleName": "amplify-masterymath-staging-171830-unauthRole",
+      "StackName": "amplify-masterymath-staging-171830",
+      "StackId": "arn:aws:cloudformation:us-east-1:421377131745:stack/amplify-masterymath-staging-171830/a399c930-0b74-11ed-aed1-129c5a3cfaa3",
+      "AmplifyAppId": "d14wkyt6li198o"
+    }
+  },
+  "auth": {
+    "masterymath": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_UPPERCASE"
+          ]
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "output": {
+        "UserPoolId": "us-east-1_vXZx0riKW",
+        "AppClientIDWeb": "651nn5ptfi2qlh66pub0iif2va",
+        "AppClientID": "56khm2ek3l3hj56g1o6ehmhact",
+        "IdentityPoolId": "us-east-1:2f618501-0a66-4930-9217-bf06ffdaad66",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:421377131745:userpool/us-east-1_vXZx0riKW",
+        "IdentityPoolName": "testAuthIdentityPool__staging",
+        "UserPoolName": "masterymath"
+      },
+      "lastPushTimeStamp": "2022-07-24T18:44:02.520Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-masterymath-staging-171830-deployment/amplify-cfn-templates/auth/masterymath-cloudformation-template.json",
+        "logicalId": "authmasterymath"
+      }
+    }
+  },
+  "api": {
+    "masterymath": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "wmefq4djindkjhnje3oiwuidwy",
+        "GraphQLAPIEndpointOutput": "https://u6hzpwckmjdurldd6tkfmf5lqy.appsync-api.us-east-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-ambexijzjrg5fcsshdideyuvi4"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-masterymath-staging-171830-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apimasterymath"
+      },
+      "lastPushTimeStamp": "2022-07-24T18:44:02.528Z",
+      "lastPushDirHash": "1axQp/4mxu9g5q5s8X9zfkkubmw="
+    }
+  }
+}

@@ -1,0 +1,238 @@
+
+enum GameResultEnum {
+  WHITEWINS
+  BLACKWINS
+  DRAW
+  INPROGRESS
+  CANCELLED
+}
+
+type ChessGame @aws_iam @aws_api_key {
+  id: ID!
+  whitePlayerId: ID!
+  blackPlayerId: ID!
+  result: GameResultEnum!
+  untitledfield: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type User @aws_iam @aws_api_key {
+  id: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelChessGameConnection @aws_api_key @aws_iam {
+  items: [ChessGame]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelGameResultEnumInput {
+  eq: GameResultEnum
+  ne: GameResultEnum
+}
+
+input ModelChessGameFilterInput {
+  id: ModelIDInput
+  whitePlayerId: ModelIDInput
+  blackPlayerId: ModelIDInput
+  result: ModelGameResultEnumInput
+  untitledfield: ModelStringInput
+  and: [ModelChessGameFilterInput]
+  or: [ModelChessGameFilterInput]
+  not: ModelChessGameFilterInput
+}
+
+type Query {
+  getChessGame(id: ID!): ChessGame @aws_api_key @aws_iam
+  listChessGames(filter: ModelChessGameFilterInput, limit: Int, nextToken: String): ModelChessGameConnection @aws_api_key @aws_iam
+  syncChessGames(filter: ModelChessGameFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelChessGameConnection @aws_api_key @aws_iam
+  getUser(id: ID!): User @aws_api_key @aws_iam
+  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection @aws_api_key @aws_iam
+  syncUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelUserConnection @aws_api_key @aws_iam
+}
+
+input ModelChessGameConditionInput {
+  whitePlayerId: ModelIDInput
+  blackPlayerId: ModelIDInput
+  result: ModelGameResultEnumInput
+  untitledfield: ModelStringInput
+  and: [ModelChessGameConditionInput]
+  or: [ModelChessGameConditionInput]
+  not: ModelChessGameConditionInput
+}
+
+input CreateChessGameInput {
+  id: ID
+  whitePlayerId: ID!
+  blackPlayerId: ID!
+  result: GameResultEnum!
+  untitledfield: String
+  _version: Int
+}
+
+input UpdateChessGameInput {
+  id: ID!
+  whitePlayerId: ID
+  blackPlayerId: ID
+  result: GameResultEnum
+  untitledfield: String
+  _version: Int
+}
+
+input DeleteChessGameInput {
+  id: ID!
+  _version: Int
+}
+
+type Mutation {
+  createChessGame(input: CreateChessGameInput!, condition: ModelChessGameConditionInput): ChessGame @aws_api_key @aws_iam
+  updateChessGame(input: UpdateChessGameInput!, condition: ModelChessGameConditionInput): ChessGame @aws_api_key @aws_iam
+  deleteChessGame(input: DeleteChessGameInput!, condition: ModelChessGameConditionInput): ChessGame @aws_api_key @aws_iam
+  createUser(input: CreateUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+  updateUser(input: UpdateUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+  deleteUser(input: DeleteUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+}
+
+type Subscription {
+  onCreateChessGame: ChessGame @aws_subscribe(mutations: ["createChessGame"]) @aws_api_key @aws_iam
+  onUpdateChessGame: ChessGame @aws_subscribe(mutations: ["updateChessGame"]) @aws_api_key @aws_iam
+  onDeleteChessGame: ChessGame @aws_subscribe(mutations: ["deleteChessGame"]) @aws_api_key @aws_iam
+  onCreateUser: User @aws_subscribe(mutations: ["createUser"]) @aws_api_key @aws_iam
+  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"]) @aws_api_key @aws_iam
+  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"]) @aws_api_key @aws_iam
+}
+
+type ModelUserConnection @aws_api_key @aws_iam {
+  items: [User]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelUserFilterInput {
+  id: ModelIDInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+input ModelUserConditionInput {
+  and: [ModelUserConditionInput]
+  or: [ModelUserConditionInput]
+  not: ModelUserConditionInput
+}
+
+input CreateUserInput {
+  id: ID
+  _version: Int
+}
+
+input UpdateUserInput {
+  id: ID!
+  _version: Int
+}
+
+input DeleteUserInput {
+  id: ID!
+  _version: Int
+}
+

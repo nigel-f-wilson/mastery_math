@@ -1,0 +1,19 @@
+enum GameResultEnum {
+  WHITEWINS
+  BLACKWINS
+  DRAW
+  INPROGRESS
+  CANCELLED
+}
+
+type ChessGame @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  whitePlayerId: ID!
+  blackPlayerId: ID!
+  result: GameResultEnum!
+  untitledfield: String
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+}

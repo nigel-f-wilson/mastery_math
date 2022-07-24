@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "masterymath",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "S3DeploymentBucket": "amplify-masterymath-staging-171830-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/e7f81a139b96b7a18a532c6c1991d358a4fe19a9"
+}
